@@ -1,0 +1,47 @@
+body {
+	margin: 0;
+	padding: 0;
+    background-color: #F5F8F9;
+}
+
+body, * {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+    color: #007EE5;
+    text-decoration: none;
+}
+
+.md-input-infix {
+    color: #555;
+    font-size: 16px;
+}
+
+.md-input-placeholder {
+    color: #B0B9BF;
+}
+
+.md-input-underline {
+    border-color: #dae4ec;
+}
+
+.login-btn {
+	width: 100%;
+}
+
+.login-btn .md-button-wrapper {
+    color: #fff !important;
+    z-index: 1;
+    position: relative;
+    top: 4px;
+}
+
+.login-btn .md-button-ripple {
+    background-color: #007EE5;
+    padding: 23px;
+}
+
+md-card {
+    background-color: #fff;
+}

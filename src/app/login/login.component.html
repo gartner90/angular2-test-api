@@ -1,0 +1,23 @@
+<div class="content-app-login">
+	<md-card class="login-card">
+		<div *ngIf="!user">
+			<div class="login-card-title">Login</div>
+			<md-card-content>
+				<form #loginForm="ngForm" (submit)="sumbitLogin($event)"> 
+					<md-input class="login-input" placeholder="Email" name="email" type="email" id="email" [(ngModel)]="email" required></md-input>
+					<md-input class="login-input" placeholder="Password" name="password" type="password" id="password" [(ngModel)]="password" required></md-input>
+					<div class="terms-content">
+						By signin up or clicking continue, I confirm that i have read and agree to the <a href="">Terms</a> and <a href="">Privacy Policy</a>
+					</div>
+					<div class="error-message"> {{ errorMessage }} </div>
+					<button md-raised-button class="login-btn" type="submit">LOGIN</button>
+				</form>
+			</md-card-content>
+		</div>
+		<div *ngIf="user">
+			<div class="message">Hello {{user.firstName}} {{user.lastName}}</div>
+			<br>
+			<button md-raised-button class="login-btn" (click)="goToApp()">Enter</button>		
+		</div>
+	</md-card>
+</div>

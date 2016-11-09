@@ -1,0 +1,182 @@
+<div class="content-app-profile container">
+
+	<md-card class="profile-header">
+		<md-card-content *ngIf="!user">
+			<div class="content-logout">
+				<button type="button" class="btn btn-outline-primary custom-primary float-right float-sm-right" (click)="logIn()">LOG IN</button>
+			</div>
+		</md-card-content>
+
+		<md-card-content *ngIf="user">
+			<div class="content-logout">
+				<button type="button" class="btn btn-outline-primary custom-primary float-right float-sm-right" (click)="logOut()">LOG OUT</button>
+			</div>
+			<button type="button" class="btn btn-default custom-gray hidden-xs-up hidden-sm-up">
+				<span class="ion-ios-camera"></span> <span class="btn-text">Upload Cover Image</span>
+			</button>
+			<div class="row">
+				<div class="col-md-4 col-lg-3 col-xl-2">
+					<div class="upload-photo">
+						<span class="ion-ios-camera"></span>
+						<span class="upload-text">Upload Photo</span>
+					</div>
+				</div>
+				<div class="col-md-5 col-lg-6 col-xl-7">
+					<div class="profile-name">{{user.firstName}} {{user.lastName}}</div>
+					<div class="profile-detail"><i class="ion-ios-location-outline"></i> <span>{{user.address.city}}, {{user.address.state}}</span></div>
+					<div class="profile-detail"><i class="ion-ios-telephone-outline"></i> <span>{{user.phone}}</span></div>
+				</div>
+				<div class="col-md-3 col-lg-3 col-xl-3">
+					<div class="content-stars">
+						<span *ngFor='let star of currentStars' class="rating-stars">
+							<span *ngIf="star.status">
+								<i class="ion-android-star"></i>
+							</span>
+							<span *ngIf="!star.status">
+								<i class="ion-android-star-outline"></i>
+							</span>
+						</span>
+						<span class="reviews-count">{{user.reviewsCount}}</span>
+						<span class="reviews-text">Reviews</span>
+					</div>
+				</div>
+			</div>
+			<div class="menu-selector">
+				<div class="followers-content">
+					<span class="plus-followers">+</span>
+					<span class="number-followers">{{user.followersCount}}</span>
+					<span class="text-reviews">Followers</span>
+				</div>
+				<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-primary active" (click)="openTab('about')">
+						<input type="radio" checked autocomplete="off" > ABOUT
+					</label>
+					<label class="btn btn-primary" (click)="openTab('settings')">
+						<input type="radio" autocomplete="off"> SETTINGS
+					</label>
+					<label class="btn btn-primary" (click)="openTab('op1')">
+						<input type="radio" autocomplete="off"> OPTION1
+					</label>
+					<label class="btn btn-primary" (click)="openTab('op2')">
+						<input type="radio" autocomplete="off"> OPTION2
+					</label>
+					<label class="btn btn-primary" (click)="openTab('op3')">
+						<input type="radio" autocomplete="off"> OPTION3
+					</label>
+				</div>
+			</div>
+			
+		</md-card-content>
+	</md-card>
+
+	<md-card class="profile-body" *ngIf="user">
+		<md-card-content>
+			<div [ngSwitch]="currentTab">
+				<div class="tab-contain" *ngSwitchCase="'about'">
+					<h2>Profile Info</h2>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="edit-content">
+								<div class="profile-detail">
+									<span class="field-content">
+										<span class="field-label field-name">{{user.firstName}} {{user.lastName}}</span>
+									</span>
+									<span class="ion-edit">
+										<div class="ion-click" (click)="openEdit('firstName')"></div>
+										<div class="content-edit-field" *ngIf="openPopEdit == 'firstName'">
+											<div class="title-edit-field">First Name</div>
+											<input type="text" [(ngModel)]="editData.firstName">
+
+											<a class="save-field" (click)="editProfile('')">SAVE {{editData.firstName}}...</a>
+											<a class="cancel-field" (click)="openEdit('')">CANCEL</a>
+										</div>
+									</span>
+								</div>
+								<div class="profile-detail">
+									<span class="field-content">
+										<i class="ion-earth"></i> 
+										<span class="field-label">{{user.website}}</span>
+									</span>
+									<span class="ion-edit">
+										<div class="ion-click" (click)="openEdit('website')"></div>
+										<div class="content-edit-field" *ngIf="openPopEdit == 'website'">
+											<div class="title-edit-field">Website</div>
+											<input type="text" [(ngModel)]="editData.website">
+											<a class="save-field" (click)="editProfile('')">SAVE</a>
+											<a class="cancel-field" (click)="openEdit('')">CANCEL</a>
+										</div>
+									</span>
+								</div>
+								<div class="profile-detail">
+									<span class="field-content">
+										<i class="ion-ios-telephone-outline"></i> 
+										<span>{{user.phone}}</span>
+									</span>
+									<span class="ion-edit">
+										<div class="ion-click" (click)="openEdit('phone')"></div>
+										<div class="content-edit-field" *ngIf="openPopEdit == 'phone'">
+											<div class="title-edit-field">Phone</div>
+											<input type="text" [(ngModel)]="editData.phone">
+											<a class="save-field" (click)="editProfile('')">SAVE</a>
+											<a class="cancel-field" (click)="openEdit('')">CANCEL</a>
+										</div>
+									</span>
+								</div>
+								<div class="profile-detail">
+									<span class="field-content">
+										<i class="ion-ios-home-outline"></i> 
+										<span>{{user.address.city}}, {{user.address.state}}</span>
+									</span>
+									<span class="ion-edit">
+										<div class="ion-click" (click)="openEdit('city')"></div>
+										<div class="content-edit-field" *ngIf="openPopEdit == 'city'">
+											<div class="title-edit-field">City</div>
+											<input type="text" [(ngModel)]="editData.city">
+											<a class="save-field" (click)="editProfile('')">SAVE</a>
+											<a class="cancel-field" (click)="openEdit('')">CANCEL</a>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-8 hidden-xs-up hidden-sm-up">
+							<div class="content-stars blue-stars">
+								<span *ngFor='let star of currentStars' class="rating-stars">
+									<span *ngIf="star.status">
+										<i class="ion-android-star"></i>
+									</span>
+									<span *ngIf="!star.status">
+										<i class="ion-android-star-outline"></i>
+									</span>
+								</span>
+								<span class="reviews-count">{{user.reviewsCount}}</span>
+								<span class="reviews-text">Reviews</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-contain" *ngSwitchCase="'settings'">
+					<div class="row">
+						<div class="col-md-5">
+							<h2>Change Password</h2>
+							<md-input class="settings-input" placeholder="Existing Password" name="pass.oldPassword" type="password" id="oldPassword" [(ngModel)]="pass.oldPassword"></md-input>
+							<md-input class="settings-input" placeholder="New Password" name="pass.newPassword" type="password" id="newPassword" [(ngModel)]="pass.newPassword"></md-input>
+							<md-input class="settings-input" placeholder="Confirm Password" name="cPassword" type="password" id="cPassword" [(ngModel)]="cPassword"></md-input>
+							<div class="error-message">{{error}}</div>
+							<a class="save-field" (click)="putPassword()">SAVE</a>
+						</div>
+					</div>
+				</div>
+				<div class="tab-contain" *ngSwitchCase="'op1'">
+					OPTION1
+				</div>
+				<div class="tab-contain" *ngSwitchCase="'op2'">
+					OPTION2
+				</div>
+				<div class="tab-contain" *ngSwitchCase="'op3'">
+					OPTION3
+				</div>
+			</div>
+		</md-card-content>
+	</md-card>
+</div>
